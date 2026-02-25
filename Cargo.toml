@@ -1,0 +1,25 @@
+[package]
+name = "async-light"
+version = "0.1.0"
+edition = "2024"
+
+[[bin]]
+name = "async-light"
+harness = false
+
+[features]
+default = ["std", "esp-idf-sys/native"]
+std = ["esp-idf-sys/std"]
+
+[dependencies]
+anyhow = "1"
+log = "0.4"
+esp-idf-hal = { git = "https://github.com/Kinubi/esp-idf-hal", branch = "esp32p4-fix" }
+esp-idf-sys = { git = "https://github.com/esp-rs/esp-idf-sys", branch = "master" }
+fugit = "0.3.9"
+
+[build-dependencies]
+embuild = "0.33"
+
+[patch.crates-io]
+esp-idf-sys = { git = "https://github.com/esp-rs/esp-idf-sys", branch = "master" }

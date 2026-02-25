@@ -1,0 +1,18 @@
+[build]
+target = "riscv32imafc-esp-espidf"
+
+[target.riscv32imafc-esp-espidf]
+linker = "ldproxy"
+runner = "./flash_esptool_workaround.sh"
+rustflags = ["--cfg", "espidf_time64"]
+
+
+[unstable]
+build-std = ["std", "panic_abort"]
+
+[env]
+MCU = "esp32p4"
+ESP_IDF_VERSION = "v5.5.3"
+
+[alias]
+run-esptools = "run --config target.riscv32imafc-esp-espidf.runner='./flash_esptools_runner.sh'"
