@@ -2,3 +2,11 @@
 /.embuild
 /sdkconfig
 /sdkconfig.old
+
+# ESP-IDF config backup artifacts
+/sdkconfig.bak
+/sdkconfig.save
+/sdkconfig.tmp
+
+# ESP-IDF component manager locks (treat as generated)
+/components_*.lock

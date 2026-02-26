@@ -8,7 +8,8 @@ fn sanitize_python_virtualenv() {
         let venv_bin = PathBuf::from(venv_path).join("bin");
 
         if let Some(path_value) = env::var_os("PATH") {
-            let filtered_paths: Vec<PathBuf> = env::split_paths(&path_value)
+            let filtered_paths: Vec<PathBuf> = env
+                ::split_paths(&path_value)
                 .filter(|entry| entry != &venv_bin)
                 .collect();
 
@@ -28,5 +29,7 @@ fn sanitize_python_virtualenv() {
 
 fn main() {
     sanitize_python_virtualenv();
+    println!("cargo::rustc-check-cfg=cfg(esp32p4)");
+    println!("cargo::rustc-check-cfg=cfg(esp_idf_comp_espressif__esp_wifi_remote_enabled)");
     embuild::espidf::sysenv::output();
 }
