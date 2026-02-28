@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-TARGET_BASE="${ROOT_DIR}/target/riscv32imafc-esp-espidf/debug/build"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_DIR="$(cd "${SCRIPT_DIR}/.." && pwd)"
+TARGET_BASE="${PROJECT_DIR}/target/riscv32imafc-esp-espidf/debug/build"
 DRY_RUN=0
 
 if [ "${1:-}" = "--dry-run" ]; then
@@ -47,10 +48,10 @@ IDF_PATH="${BUILD_INFO[0]}"
 EXPORTED_PATH="${BUILD_INFO[1]}"
 VENV_PYTHON="${BUILD_INFO[2]}"
 ESP_IDF_VERSION_MM="${BUILD_INFO[3]}"
-SDKCONFIG_DEFAULTS="${OUT_DIR}/gen-sdkconfig.defaults;${ROOT_DIR}/sdkconfig.defaults"
+SDKCONFIG_DEFAULTS="${OUT_DIR}/gen-sdkconfig.defaults;${PROJECT_DIR}/sdkconfig.defaults"
 
-if [ ! -f "${ROOT_DIR}/sdkconfig.defaults" ]; then
-  echo "Missing ${ROOT_DIR}/sdkconfig.defaults"
+if [ ! -f "${PROJECT_DIR}/sdkconfig.defaults" ]; then
+  echo "Missing ${PROJECT_DIR}/sdkconfig.defaults"
   exit 1
 fi
 
@@ -65,7 +66,7 @@ echo "Regenerating sdkconfig from defaults, then opening menuconfig..."
 
 export IDF_PATH
 export IDF_TARGET=esp32p4
-export PROJECT_DIR="${ROOT_DIR}"
+export PROJECT_DIR
 export PATH="${EXPORTED_PATH}"
 export SDKCONFIG_DEFAULTS
 export ESP_IDF_VERSION="${ESP_IDF_VERSION_MM}"

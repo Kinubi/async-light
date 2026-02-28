@@ -29,6 +29,7 @@ fn sanitize_python_virtualenv() {
 
 fn main() {
     sanitize_python_virtualenv();
+
     println!("cargo::rustc-check-cfg=cfg(esp32p4)");
     println!("cargo::rustc-check-cfg=cfg(esp_idf_comp_espressif__esp_wifi_remote_enabled)");
     embuild::espidf::sysenv::output();
